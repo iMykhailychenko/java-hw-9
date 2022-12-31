@@ -1,29 +1,77 @@
 package com.goit.collections;
 
+import java.util.*;
 
 public class MyArrayList<T> implements MyList<T> {
-    @Override
-    public void add(T value) {
-        System.out.println("");
+    private static final int DEFAULT_CAPACITY = 8;
+
+    private int size = 0;
+    private transient Object[] elementData;
+
+    public MyArrayList() {
+        this(DEFAULT_CAPACITY);
+    }
+
+    public MyArrayList(int capacity) {
+        this.elementData = new Object[capacity];
+    }
+
+    private void grow() {
+        elementData = Arrays.copyOf(elementData, this.size + DEFAULT_CAPACITY);
     }
 
     @Override
-    public void remove(int index) {
+    public boolean add(T value) {
+        if (elementData.length == size) {
+            grow();
+        }
 
+        elementData[size] = value;
+        size++;
+        return true;
+    }
+
+    @Override
+    public boolean remove(int index) throws IndexOutOfBoundsException {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Index " + index + " out of bounds for length " + size);
+        }
+
+        System.arraycopy(elementData, index + 1, elementData, index, size);
+        size--;
+        return false;
     }
 
     @Override
     public void clear() {
-
+        size = 0;
+        elementData = new Object[DEFAULT_CAPACITY];
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
-    public T get(int index) {
-        return null;
+    public T get(int index) throws IndexOutOfBoundsException {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("Index " + index + " out of bounds for length " + size);
+        }
+
+        return (T) elementData[index];
+    }
+
+    @Override
+    public String toString() {
+        String result = "[";
+        for (int i = 0; i < size; i++) {
+            result += elementData[i];
+            if (i != size - 1) {
+                result += ", ";
+            }
+        }
+        result += "]";
+        return result;
     }
 }

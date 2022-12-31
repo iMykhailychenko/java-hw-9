@@ -2,13 +2,13 @@ package com.goit.collections;
 
 public class MyLinkedList<T> implements MyList<T> {
     @Override
-    public void add(T value) {
-
+    public boolean add(T value) {
+        return false;
     }
 
     @Override
-    public void remove(int index) {
-
+    public boolean remove(int index) {
+        return false;
     }
 
     @Override
