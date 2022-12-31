@@ -1,5 +1,7 @@
 package com.goit.collections;
 
+import java.util.HashMap;
+
 public class MyHashMap<K, V> implements MyCollection {
     public void put(K key, V value) {
 
