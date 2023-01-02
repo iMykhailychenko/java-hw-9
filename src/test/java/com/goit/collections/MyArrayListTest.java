@@ -8,7 +8,10 @@ public class MyArrayListTest {
     @Test
     public void testAddElement() {
         MyList<Integer> list = new MyArrayList<>();
-        assertTrue(list.add(5));
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        assertEquals("[1, 2, 3]", list.toString());
     }
 
     @Test
@@ -40,20 +43,5 @@ public class MyArrayListTest {
         MyList<Integer> list = new MyArrayList<>();
         list.add(5);
         assertEquals((Integer) 5, list.get(0));
-    }
-
-    @Test
-    public void testToString() {
-        MyList<Integer> list = new MyArrayList<>();
-        list.add(1);
-        list.add(2);
-        list.add(3);
-        assertEquals("[1, 2, 3]", list.toString());
-    }
-
-    @Test
-    public void testEmptyToString() {
-        MyList<Integer> list = new MyArrayList<>();
-        assertEquals("[]", list.toString());
     }
 }

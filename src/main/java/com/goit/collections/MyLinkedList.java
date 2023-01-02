@@ -6,7 +6,7 @@ public class MyLinkedList<T> implements MyList<T> {
     private MyLinkedList.Node<T> last;
 
     @Override
-    public boolean add(T value) {
+    public void add(T value) {
         final Node<T> oldLast = last;
         final Node<T> newNode = new Node<>(last, value, null);
         last = newNode;
@@ -17,11 +17,10 @@ public class MyLinkedList<T> implements MyList<T> {
             oldLast.next = newNode;
         }
         size++;
-        return true;
     }
 
     @Override
-    public boolean remove(int index) throws IndexOutOfBoundsException {
+    public void remove(int index) throws IndexOutOfBoundsException {
         if (ArrayUtils.isInBounds(index, size)) {
             throw new IndexOutOfBoundsException(ArrayUtils.getBoundsErrorText(index, size));
         }
@@ -30,13 +29,13 @@ public class MyLinkedList<T> implements MyList<T> {
         if (index == 0) {
             first = first.next;
             first.prev = null;
-            return true;
+            return;
         }
 
         if (index == size) {
             last = last.prev;
             last.next = null;
-            return true;
+            return;
         }
 
         final Node<T> node = getNode(index);
@@ -45,8 +44,6 @@ public class MyLinkedList<T> implements MyList<T> {
 
         prev.next = next;
         next.prev = prev;
-
-        return true;
     }
 
     @Override

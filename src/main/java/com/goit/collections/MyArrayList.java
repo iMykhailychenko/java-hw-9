@@ -6,40 +6,30 @@ public class MyArrayList<T> implements MyList<T> {
     private static final int DEFAULT_CAPACITY = 8;
 
     private int size = 0;
-    private transient Object[] elementData;
-
-    public MyArrayList() {
-        this(DEFAULT_CAPACITY);
-    }
-
-    public MyArrayList(int capacity) {
-        this.elementData = new Object[capacity];
-    }
+    private transient Object[] elementData = new Object[DEFAULT_CAPACITY];
 
     private void grow() {
         elementData = Arrays.copyOf(elementData, this.size + DEFAULT_CAPACITY);
     }
 
     @Override
-    public boolean add(T value) {
+    public void add(T value) {
         if (elementData.length == size) {
             grow();
         }
 
         elementData[size] = value;
         size++;
-        return true;
     }
 
     @Override
-    public boolean remove(int index) throws IndexOutOfBoundsException {
+    public void remove(int index) throws IndexOutOfBoundsException {
         if (ArrayUtils.isInBounds(index, size)) {
             throw new IndexOutOfBoundsException(ArrayUtils.getBoundsErrorText(index, size));
         }
 
         System.arraycopy(elementData, index + 1, elementData, index, size);
         size--;
-        return false;
     }
 
     @Override
