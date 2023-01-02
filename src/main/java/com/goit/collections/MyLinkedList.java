@@ -91,16 +91,16 @@ public class MyLinkedList<T> implements MyList<T> {
 
     @Override
     public String toString() {
-        String result = "[";
-        Node<T> tmp = first;
+        StringBuilder result = new StringBuilder();
+        result.append('[');
+
         for (int i = 0; i < size; i++) {
-            result += tmp.item;
-            tmp = tmp.next;
+            result.append(get(i));
             if (i != size - 1) {
-                result += " -> ";
+                result.append(" -> ");
             }
         }
-        result += "]";
-        return result;
+
+        return result.append(']').toString();
     }
 }

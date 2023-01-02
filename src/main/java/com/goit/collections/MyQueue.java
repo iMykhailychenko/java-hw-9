@@ -13,20 +13,26 @@ public class MyQueue<T> implements MyCollection {
         }
 
         if (last == null) {
-            last = new Node<>(value, first);
+            last = new Node<>(value, null);
+            first.next = last;
             return;
         }
 
         Node<T> oldLast = last;
-        last = new Node<>(value, oldLast);
+        Node<T> node = new Node<>(value, null);
+        oldLast.next = node;
+        last = node;
     }
 
     public T peek() {
-        return null;
+        return first.item;
     }
 
     public T poll() {
-        return null;
+        T result = first.item;
+        first = first.next;
+        size--;
+        return result;
     }
 
     @Override
@@ -43,27 +49,28 @@ public class MyQueue<T> implements MyCollection {
 
     @Override
     public String toString() {
-        String result = "[";
-        MyQueue.Node<T> tmp = last;
+        StringBuilder result = new StringBuilder();
+        result.append('[');
+
+        MyQueue.Node<T> tmp = first;
         for (int i = 0; i < size; i++) {
-            result += tmp.item;
-            tmp = tmp.prev;
+            result.append(tmp.item);
+            tmp = tmp.next;
             if (i != size - 1) {
-                result += " -> ";
+                result.append(" -> ");
             }
         }
-        result += "]";
-        return result;
+
+        return result.append(']').toString();
     }
 
     private static class Node<T> {
         public T item;
-        public MyQueue.Node<T> prev;
+        public MyQueue.Node<T> next;
 
-        public Node(T item, Node<T> prev) {
+        public Node(T item, Node<T> next) {
             this.item = item;
-            this.prev = prev;
+            this.next = next;
         }
     }
-
 }

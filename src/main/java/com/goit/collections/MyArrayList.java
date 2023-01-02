@@ -54,14 +54,16 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public String toString() {
-        String result = "[";
+        StringBuilder result = new StringBuilder();
+        result.append('[');
+
         for (int i = 0; i < size; i++) {
-            result += elementData[i];
+            result.append(get(i));
             if (i != size - 1) {
-                result += ", ";
+                result.append(", ");
             }
         }
-        result += "]";
-        return result;
+
+        return result.append(']').toString();
     }
 }
