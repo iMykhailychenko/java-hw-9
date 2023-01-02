@@ -33,8 +33,8 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public boolean remove(int index) throws IndexOutOfBoundsException {
-        if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException("Index " + index + " out of bounds for length " + size);
+        if (ArrayUtils.isInBounds(index, size)) {
+            throw new IndexOutOfBoundsException(ArrayUtils.getBoundsErrorText(index, size));
         }
 
         System.arraycopy(elementData, index + 1, elementData, index, size);
@@ -55,8 +55,8 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public T get(int index) throws IndexOutOfBoundsException {
-        if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException("Index " + index + " out of bounds for length " + size);
+        if (ArrayUtils.isInBounds(index, size)) {
+            throw new IndexOutOfBoundsException(ArrayUtils.getBoundsErrorText(index, size));
         }
 
         return (T) elementData[index];
