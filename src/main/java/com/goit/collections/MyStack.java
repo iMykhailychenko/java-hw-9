@@ -1,29 +1,52 @@
 package com.goit.collections;
 
 public class MyStack<T> implements MyCollection {
+    private MyList<T> elementData = new MyArrayList<>();
 
     public void push(T value) {
+        elementData.add(value);
     }
 
-    public int remove(int index) {
-        return 0;
+    public void remove(int index) {
+        elementData.remove(index);
     }
 
     public T peek() {
-        return null;
+        return elementData.get(elementData.size() - 1);
     }
 
     public T pop() {
-        return null;
+        int lastIndex = elementData.size() - 1;
+        T result = elementData.get(lastIndex);
+        System.out.println(result);
+        elementData.remove(lastIndex);
+
+        return result;
     }
 
     @Override
     public void clear() {
-
+        elementData = new MyArrayList<>();
     }
 
     @Override
     public int size() {
-        return 0;
+        return elementData.size();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        result.append('[');
+
+        for (int i = 0; i < size(); i++) {
+            result.append(elementData.get(i));
+
+            if (i != size() - 1) {
+                result.append(" <- ");
+            }
+        }
+
+        return result.append(']').toString();
     }
 }

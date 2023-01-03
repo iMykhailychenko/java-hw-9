@@ -19,9 +19,8 @@ public class MyQueue<T> implements MyCollection {
         }
 
         Node<T> oldLast = last;
-        Node<T> node = new Node<>(value, null);
-        oldLast.next = node;
-        last = node;
+        last = new Node<>(value, null);
+        oldLast.next = last;
     }
 
     public T peek() {

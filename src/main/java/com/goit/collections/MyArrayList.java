@@ -28,8 +28,11 @@ public class MyArrayList<T> implements MyList<T> {
             throw new IndexOutOfBoundsException(ArrayUtils.getBoundsErrorText(index, size));
         }
 
-        System.arraycopy(elementData, index + 1, elementData, index, size);
         size--;
+        if (size > index) {
+            System.arraycopy(elementData, index + 1, elementData, index, size - index);
+        }
+        elementData[size] = null;
     }
 
     @Override

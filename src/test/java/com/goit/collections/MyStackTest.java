@@ -12,10 +12,10 @@ public class MyStackTest {
         assertEquals("[1]", stack.toString());
 
         stack.push(2);
-        assertEquals("[2 <- 1]", stack.toString());
+        assertEquals("[1 <- 2]", stack.toString());
 
         stack.push(3);
-        assertEquals("[3 <- 2 <- 1]", stack.toString());
+        assertEquals("[1 <- 2 <- 3]", stack.toString());
     }
 
     @Test
@@ -26,11 +26,11 @@ public class MyStackTest {
         stack.push(3);
         assertEquals("[1 <- 2 <- 3]", stack.toString());
 
-        stack.remove(2);
-        assertEquals("[1 <- 2]", stack.toString());
+        stack.remove(1);
+        assertEquals("[1 <- 3]", stack.toString());
 
         stack.remove(0);
-        assertEquals("[2]", stack.toString());
+        assertEquals("[3]", stack.toString());
     }
 
     @Test
@@ -49,8 +49,9 @@ public class MyStackTest {
         MyStack<Integer> stack = new MyStack<>();
         stack.push(1);
         stack.push(2);
-        assertEquals((Integer) 2, stack.peek());
-        assertEquals((Integer) 1, stack.peek());
+
+        assertEquals((Integer) 2, stack.pop());
+        assertEquals((Integer) 1, stack.pop());
     }
 
     @Test
