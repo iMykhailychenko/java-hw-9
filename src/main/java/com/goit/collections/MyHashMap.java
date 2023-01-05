@@ -1,25 +1,157 @@
 package com.goit.collections;
 
-public class MyHashMap<K, V> implements MyCollection {
-    public void put(K key, V value) {
+import java.util.Arrays;
 
+public class MyHashMap<K, V> implements MyCollection {
+    private static final int DEFAULT_CAPACITY = 16;
+
+    private int size = 0;
+    private Object[] elementData = new Object[DEFAULT_CAPACITY];
+
+    private int getIndex(K key) {
+        return key.hashCode() % DEFAULT_CAPACITY;
     }
 
-    public void remove(K key) {
+    private Node<K, V> getNode(K key) {
+        int index = getIndex(key);
+        return (Node<K, V>) elementData[index];
+    }
 
+    private void putNextNode(K key, V value, Node<K, V> node) {
+        size++;
+        node.next = new Node<>(key, value, node.next == null ? null : node.next.next);
+    }
+
+    public void put(K key, V value) {
+        Node<K, V> node = getNode(key);
+
+        if (node == null) {
+            elementData[getIndex(key)] = new Node<>(key, value, null);
+            size++;
+            return;
+        }
+
+        if (node.key.equals(key)) {
+            putNextNode(key, value, node);
+            return;
+        }
+
+
+        while (true) {
+            // for last element
+            if (node.next == null) {
+                putNextNode(key, value, node);
+                break;
+            }
+
+            if (node.next.key.equals(key)) {
+                putNextNode(key, value, node);
+                break;
+            }
+
+            node = node.next;
+        }
+    }
+
+
+    public void remove(K key) {
+        Node<K, V> node = getNode(key);
+
+        if (node == null) {
+            return;
+        }
+
+        if (node.key.equals(key)) {
+            int index = getIndex(key);
+            Node<K, V> newNode = (Node<K, V>) elementData[index];
+            elementData[index] = newNode.next;
+            size--;
+            return;
+        }
+
+        while (true) {
+            // for last element
+            if (node.next == null) {
+                break;
+            }
+
+            if (node.next.key.equals(key)) {
+                node.next = node.next.next;
+                size--;
+                break;
+            }
+
+            node = node.next;
+        }
     }
 
     public V get(K key) {
-        return null;
+        Node<K, V> node = getNode(key);
+
+        if (node.key.equals(key)) {
+            return node.value;
+        }
+
+        while (true) {
+            // for last element
+            if (node.next == null) {
+                break;
+            }
+
+            if (node.next.key.equals(key)) {
+                break;
+            }
+
+            node = node.next;
+        }
+
+        return node.next == null ? null : node.next.value;
     }
 
     @Override
     public void clear() {
-
+        size = 0;
+        elementData = new Object[DEFAULT_CAPACITY];
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder();
+        result.append("{ ");
+
+        for (Object element: elementData) {
+            if (element == null) {
+                continue;
+            }
+
+            Node<K, V> node = (Node<K, V>) element;
+            while (true) {
+                if (node == null) {
+                    break;
+                }
+
+                result.append(node.key).append(":").append(node.value).append(' ');
+                node = node.next;
+            }
+        }
+
+        return result.append('}').toString();
+    }
+
+    private static class Node<K, V> {
+        public final K key;
+        public final V value;
+        public Node<K, V> next;
+
+        public Node(K key, V value, Node<K, V> next) {
+            this.key = key;
+            this.value = value;
+            this.next = next;
+        }
     }
 }

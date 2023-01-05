@@ -9,7 +9,7 @@ public class MyArrayList<T> implements MyList<T> {
     private transient Object[] elementData = new Object[DEFAULT_CAPACITY];
 
     private void grow() {
-        elementData = Arrays.copyOf(elementData, this.size + DEFAULT_CAPACITY);
+        elementData = Arrays.copyOf(elementData, this.size * 2);
     }
 
     @Override
