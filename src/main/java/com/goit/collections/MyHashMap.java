@@ -17,11 +17,6 @@ public class MyHashMap<K, V> implements MyCollection {
         return (Node<K, V>) elementData[index];
     }
 
-    private void putNextNode(K key, V value, Node<K, V> node) {
-        size++;
-        node.next = new Node<>(key, value, node.next == null ? null : node.next.next);
-    }
-
     public void put(K key, V value) {
         Node<K, V> node = getNode(key);
 
@@ -32,7 +27,7 @@ public class MyHashMap<K, V> implements MyCollection {
         }
 
         if (node.key.equals(key)) {
-            putNextNode(key, value, node);
+            node.value = value;
             return;
         }
 
@@ -40,12 +35,13 @@ public class MyHashMap<K, V> implements MyCollection {
         while (true) {
             // for last element
             if (node.next == null) {
-                putNextNode(key, value, node);
+                size++;
+                node.next = new Node<>(key, value, null);
                 break;
             }
 
             if (node.next.key.equals(key)) {
-                putNextNode(key, value, node);
+                node.next.value = value;
                 break;
             }
 
@@ -144,8 +140,8 @@ public class MyHashMap<K, V> implements MyCollection {
     }
 
     private static class Node<K, V> {
-        public final K key;
-        public final V value;
+        public K key;
+        public V value;
         public Node<K, V> next;
 
         public Node(K key, V value, Node<K, V> next) {

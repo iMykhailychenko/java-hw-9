@@ -72,5 +72,6 @@ public class MyHashMapTest {
 
         map.put("one", "2");
         assertEquals("2", map.get("one"));
+        assertEquals(1, map.size());
     }
 }
