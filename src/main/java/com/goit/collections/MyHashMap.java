@@ -4,16 +4,39 @@ public class MyHashMap<K, V> implements MyCollection {
     private static final int DEFAULT_CAPACITY = 16;
 
     private int size = 0;
+    /**
+     * Implement next data structure:
+     * Array with 16 elements
+     * [] -> null
+     * [] -> Node -> Node -> null
+     * [] -> Node -> null
+     * ...
+     */
     private Object[] elementData = new Object[DEFAULT_CAPACITY];
 
+    /**
+     * Returns a number that is less than the length of elementData. The number will be used as an index
+     * @param key K
+     * @return int
+     */
     private int getIndex(K key) {
         return key.hashCode() % DEFAULT_CAPACITY;
     }
 
+    /**
+     * To simplify the casting of types
+     * @param index int
+     * @return Node<K, V>
+     */
     private Node<K, V> getNode(int index) {
         return (Node<K, V>) elementData[index];
     }
 
+    /**
+     * Adds a key + value pair to HashMap. If pass an existing key, the value will be overwritten
+     * @param key K
+     * @param value V
+     */
     public void put(K key, V value) {
         int index = getIndex(key);
         Node<K, V> node = getNode(index);
@@ -48,6 +71,10 @@ public class MyHashMap<K, V> implements MyCollection {
     }
 
 
+    /**
+     * Deletes an element by key. Does nothing if the element is not found
+     * @param key K
+     */
     public void remove(K key) {
         int index = getIndex(key);
         Node<K, V> node = getNode(index);
@@ -113,6 +140,11 @@ public class MyHashMap<K, V> implements MyCollection {
         return size;
     }
 
+    /**
+     * Returns HashMap instance as String in next format
+     * { key:value key2:value2 ... }
+     * @return String
+     */
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
@@ -137,6 +169,12 @@ public class MyHashMap<K, V> implements MyCollection {
         return result.append('}').toString();
     }
 
+    /**
+     * A linked list is stored in the elementData array in case the hash function returns the same index for different keys.
+     * This class will help to create a linked list.
+     * @param <K>
+     * @param <V>
+     */
     private static class Node<K, V> {
         public K key;
         public V value;

@@ -55,6 +55,11 @@ public class MyArrayList<T> implements MyList<T> {
         return (T) elementData[index];
     }
 
+    /**
+     * Returns ArrayList instance as String in next format
+     * [1, 2, 3, ...]
+     * @return String
+     */
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();

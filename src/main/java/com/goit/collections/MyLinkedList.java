@@ -63,7 +63,13 @@ public class MyLinkedList<T> implements MyList<T> {
         return getNode(index).item;
     }
 
-    Node<T> getNode(int index) {
+    /**
+     * Utility method. Finds a Node by index and returns it.
+     * Similar to the get method, but it returns the entire Node instead of the value
+     * @param index int
+     * @return Node<T>
+     */
+    private Node<T> getNode(int index) {
         if (ArrayUtils.isInBounds(index, size)) {
             throw new IndexOutOfBoundsException(ArrayUtils.getBoundsErrorText(index, size));
         }
@@ -89,6 +95,11 @@ public class MyLinkedList<T> implements MyList<T> {
         }
     }
 
+    /**
+     * Returns LinkedList instance as String in next format
+     * [1 -> 2 -> 3 -> ...]
+     * @return String
+     */
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();

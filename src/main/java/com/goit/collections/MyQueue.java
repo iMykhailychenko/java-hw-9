@@ -46,6 +46,11 @@ public class MyQueue<T> implements MyCollection {
         return size;
     }
 
+    /**
+     * Returns Queue instance as String in next format
+     * [1 -> 2 -> 3 -> ...]
+     * @return String
+     */
     @Override
     public String toString() {
         StringBuilder result = new StringBuilder();
