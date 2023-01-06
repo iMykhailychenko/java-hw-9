@@ -1,7 +1,5 @@
 package com.goit.collections;
 
-import java.util.Arrays;
-
 public class MyHashMap<K, V> implements MyCollection {
     private static final int DEFAULT_CAPACITY = 16;
 
