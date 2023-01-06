@@ -12,16 +12,16 @@ public class MyHashMap<K, V> implements MyCollection {
         return key.hashCode() % DEFAULT_CAPACITY;
     }
 
-    private Node<K, V> getNode(K key) {
-        int index = getIndex(key);
+    private Node<K, V> getNode(int index) {
         return (Node<K, V>) elementData[index];
     }
 
     public void put(K key, V value) {
-        Node<K, V> node = getNode(key);
+        int index = getIndex(key);
+        Node<K, V> node = getNode(index);
 
         if (node == null) {
-            elementData[getIndex(key)] = new Node<>(key, value, null);
+            elementData[index] = new Node<>(key, value, null);
             size++;
             return;
         }
@@ -51,14 +51,14 @@ public class MyHashMap<K, V> implements MyCollection {
 
 
     public void remove(K key) {
-        Node<K, V> node = getNode(key);
+        int index = getIndex(key);
+        Node<K, V> node = getNode(index);
 
         if (node == null) {
             return;
         }
 
         if (node.key.equals(key)) {
-            int index = getIndex(key);
             Node<K, V> newNode = (Node<K, V>) elementData[index];
             elementData[index] = newNode.next;
             size--;
@@ -82,7 +82,8 @@ public class MyHashMap<K, V> implements MyCollection {
     }
 
     public V get(K key) {
-        Node<K, V> node = getNode(key);
+        int index = getIndex(key);
+        Node<K, V> node = getNode(index);
 
         if (node.key.equals(key)) {
             return node.value;
