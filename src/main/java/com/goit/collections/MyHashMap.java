@@ -57,8 +57,7 @@ public class MyHashMap<K, V> implements MyCollection {
         }
 
         if (node.key.equals(key)) {
-            Node<K, V> newNode = (Node<K, V>) elementData[index];
-            elementData[index] = newNode.next;
+            elementData[index] = node.next;
             size--;
             return;
         }
