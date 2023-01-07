@@ -18,7 +18,6 @@ public class MyStack<T> implements MyCollection {
     public T pop() {
         int lastIndex = elementData.size() - 1;
         T result = elementData.get(lastIndex);
-        System.out.println(result);
         elementData.remove(lastIndex);
 
         return result;
